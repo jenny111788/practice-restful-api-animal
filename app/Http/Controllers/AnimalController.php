@@ -85,6 +85,10 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
-        //
+        // 把這個實體物件刪除
+        $animal->delete();
+
+        // 回傳 null 並且給予 204 狀態碼
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
