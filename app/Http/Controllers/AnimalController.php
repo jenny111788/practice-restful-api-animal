@@ -15,7 +15,10 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        //
+        //查詢系統目前的動物列表
+        $animals = Animal::get();
+
+        return response(['animals' => $animals], Response::HTTP_OK);
     }
 
     /**
@@ -51,7 +54,8 @@ class AnimalController extends Controller
      */
     public function show(Animal $animal)
     {
-        //
+        //查詢動物 單一 ID 的資料
+        return response($animal, Response::HTTP_OK);
     }
 
     /**
