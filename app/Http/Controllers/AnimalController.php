@@ -74,7 +74,11 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
-        //
+        //Animal Model 有 update 寫好的方法，把請求的內容，用all方法轉為陣列，傳入 update 方法中
+        $animal->update($request->all());
+
+        // 回傳 animal 產生出來的實體物件資料，第二個參數設定狀態碼，可以直接寫 200 表示更新成功的狀態螞或用下面 Response 功能
+        return response($animal, Response::HTTP_OK);
     }
 
     /**
