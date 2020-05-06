@@ -13,10 +13,25 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //查詢系統目前的動物列表
-        $animals = Animal::get();
+        // $animals = Animal::get();
+
+        //設定預設值 marker:指定從哪個ID開始 limit:返回多少項目
+        $marker = $request->marker == null ? 1 : $request->marker ;
+        $limit = $request->limit == null ? 10 : $request->limit ;
+
+        //分頁查詢
+        // $animals = Animal::orderBy('id', 'asc')
+        //     ->where('id', '>=', $marker)
+        //     ->limit($limit)
+        //     ->get();
+
+        //Laravel內建分頁查詢
+        $animals = Animal::orderBy('id', 'asc')
+            ->where('id', '>=', $marker)
+            ->paginate($limit);
 
         return response(['animals' => $animals], Response::HTTP_OK);
     }
