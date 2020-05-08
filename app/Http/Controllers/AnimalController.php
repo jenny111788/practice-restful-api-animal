@@ -28,9 +28,23 @@ class AnimalController extends Controller
         //     ->limit($limit)
         //     ->get();
 
-        //Laravel內建分頁查詢
-        $animals = Animal::orderBy('id', 'asc')
-            ->where('id', '>=', $marker)
+        // //Laravel內建分頁查詢
+        // $animals = Animal::orderBy('id', 'asc')
+        //     ->where('id', '>=', $marker)
+        //     ->paginate($limit);
+
+        $query = Animal::query();
+
+        //篩選欄位條件
+        if (isset($request->filters)) {
+            $filters = explode(',', $request->filters);
+            foreach ($filters as $key => $filter) {
+                list($criteria, $value) = explode(':', $filter);
+                $query->where($criteria, 'like', "%$value%");
+            }
+        }
+
+        $animals = $query->where('id', '>=', $marker)
             ->paginate($limit);
 
         return response(['animals' => $animals], Response::HTTP_OK);
