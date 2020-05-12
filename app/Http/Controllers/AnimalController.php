@@ -44,6 +44,19 @@ class AnimalController extends Controller
             }
         }
 
+        //排列順序
+        if (isset($request->sorts)) {
+            $sorts = explode(',', $request->sorts);
+            foreach ($sorts as $key => $sort) {
+                list($criteria, $value) = explode(':', $sort);
+                if ($value == 'asc' || $value == 'desc') {
+                    $query->orderBy($criteria, $value);
+                }
+            }
+        } else {
+            $query->orderBy('id', 'asc');
+        }
+
         $animals = $query->where('id', '>=', $marker)
             ->paginate($limit);
 
