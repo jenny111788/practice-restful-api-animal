@@ -81,6 +81,17 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
+        //驗證資料格式
+        $this->validate($request, [
+            'type_id' => 'required',
+            'name' => 'required|max:255',
+            'birthday' => 'required|date',
+            'area' => 'required|max:255',
+            'fix' => 'required|boolean',
+            'description' => 'nullable',
+            'personality' => 'nullable',
+        ]);
+        
         //Animal Model 有 create 寫好的方法，把請求的內容，用all方法轉為陣列，傳入 create 方法中。
         $animal = Animal::create($request->all());
 
@@ -120,6 +131,17 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
+        //驗證資料格式
+        $this->validate($request, [
+            'type_id' => 'required',
+            'name' => 'required|max:255',
+            'birthday' => 'required|date',
+            'area' => 'required|max:255',
+            'fix' => 'required|boolean',
+            'description' => 'nullable',
+            'personality' => 'nullable',
+        ]);
+    
         //Animal Model 有 update 寫好的方法，把請求的內容，用all方法轉為陣列，傳入 update 方法中
         $animal->update($request->all());
 
