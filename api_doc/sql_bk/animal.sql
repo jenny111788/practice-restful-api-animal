@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 04 月 15 日 05:01
+-- 產生時間： 2020 年 05 月 14 日 11:51
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.26
 
@@ -60,7 +60,8 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2020_04_14_083627_create_animals_table', 1);
+(3, '2020_04_14_083627_create_animals_table', 1),
+(4, '2020_05_14_072736_create_types_table', 2);
 
 -- --------------------------------------------------------
 
@@ -72,6 +73,20 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `types`
+--
+
+CREATE TABLE `types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
+  `sort` int(11) NOT NULL DEFAULT 100 COMMENT '排序',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -114,6 +129,13 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- 資料表索引 `types`
+--
+ALTER TABLE `types`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `types_name_unique` (`name`);
+
+--
 -- 資料表索引 `users`
 --
 ALTER TABLE `users`
@@ -134,7 +156,13 @@ ALTER TABLE `animals`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `types`
+--
+ALTER TABLE `types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
