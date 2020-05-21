@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Animal;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\AnimalResource;
 
 class AnimalController extends Controller
 {
@@ -108,7 +109,10 @@ class AnimalController extends Controller
     public function show(Animal $animal)
     {
         //查詢動物 單一 ID 的資料
-        return response($animal, Response::HTTP_OK);
+        // return response($animal, Response::HTTP_OK);
+
+        //回傳 Resource資料
+        return response(new AnimalResource($animal), Response::HTTP_OK);
     }
 
     /**
