@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport', //token:預設 passport:需要認證的API請求時，系統會去使用 Passport 的TokenGuard
             'provider' => 'users',
             'hash' => false,
         ],
