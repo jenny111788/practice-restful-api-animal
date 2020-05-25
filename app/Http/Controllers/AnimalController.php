@@ -9,6 +9,13 @@ use App\Http\Resources\AnimalResource;
 
 class AnimalController extends Controller
 {
+    //設定操作資源需驗證的方法
+    public function __construct()
+    {
+        //除了 index (查詢清單) 、 show (查詢單一資源) 不需要驗證其他必需認證才可以操作
+        $this->middleware('auth:api', ['expect' => ['index', 'show']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
