@@ -142,6 +142,9 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
+        //檢查權限
+        $this->authorize('update', $animal);
+
         //驗證資料格式
         $this->validate($request, [
             'type_id' => 'required',

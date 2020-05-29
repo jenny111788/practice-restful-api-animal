@@ -15,6 +15,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        
+        //註冊policy
+        Animal::class => AnimalPolicy::class,
     ];
 
     /**
