@@ -23,6 +23,18 @@ class Animal extends Model
     {
         return $this->belongsTo('App\Type');
     }
+
+    //取得動物的刊登人
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    //多對多關聯animal與user
+    public function like()
+    {
+        return $this->belongsToMany('App\User')->withTimestamps();
+    }
     
     //Carbon套件：是一個很方便的轉換時間的工具，將時間進行轉換，取得想要的特定日期或格式
     public function getAgeAttribute()

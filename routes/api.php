@@ -22,3 +22,6 @@ Route::apiResource('animal', 'AnimalController');
 
 //動物分類
 Route::apiResource('types', 'TypeController');
+
+//我的最愛可以用 like 辨識
+Route::post('animal/{animal}/like', 'AnimalController@like');

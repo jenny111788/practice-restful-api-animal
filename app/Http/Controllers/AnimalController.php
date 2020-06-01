@@ -6,6 +6,7 @@ use App\Animal;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\AnimalResource;
+use Auth;
 
 class AnimalController extends Controller
 {
@@ -175,6 +176,14 @@ class AnimalController extends Controller
         $animal->delete();
 
         // 回傳 null 並且給予 204 狀態碼
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    //動物加入或移除我的最愛
+    public function like(Animal $animal)
+    {
+        $animal->like()->toggle(Auth::user()->id);
+        
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }
