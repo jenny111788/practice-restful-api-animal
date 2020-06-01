@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 05 月 26 日 06:41
+-- 產生時間： 2020 年 06 月 01 日 11:44
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.26
 
@@ -52,8 +52,22 @@ INSERT INTO `animals` (`id`, `type_id`, `name`, `birthday`, `area`, `fix`, `desc
 (3, 1, '大黑3', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-04 16:39:21', '2020-05-04 16:39:21', 1),
 (4, 1, '嘟嘟', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-24 20:41:54', '2020-05-24 20:41:54', 1),
 (5, 1, '嘟嘟2', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-24 20:42:42', '2020-05-24 20:42:42', 1),
-(6, 1, '嘟嘟3', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-24 20:44:12', '2020-05-24 20:44:12', 1),
+(6, 1, '嘟嘟好', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-24 20:44:12', '2020-05-29 00:27:24', 1),
 (7, 1, 'refresh token', '2020-01-01', '高雄', 1, '非常可愛，非常溫和的一隻狗', '認養她陪伴一輩子', '2020-05-24 21:14:49', '2020-05-24 21:14:49', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `animal_user`
+--
+
+CREATE TABLE `animal_user` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `animal_id` bigint(20) UNSIGNED NOT NULL COMMENT '動物ID',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '使用者ID',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -82,7 +96,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2016_06_01_000004_create_oauth_clients_table', 3),
 (9, '2016_06_01_000005_create_oauth_personal_access_clients_table', 3),
 (12, '2020_05_26_031059_add_user_id_to_animals', 4),
-(13, '2020_05_26_041021_add_permission_to_users', 4);
+(13, '2020_05_26_041021_add_permission_to_users', 4),
+(14, '2020_06_01_075910_create_animal_user_table', 5);
 
 -- --------------------------------------------------------
 
@@ -266,6 +281,14 @@ ALTER TABLE `animals`
   ADD KEY `animals_user_id_foreign` (`user_id`);
 
 --
+-- 資料表索引 `animal_user`
+--
+ALTER TABLE `animal_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animal_user_user_id_foreign` (`user_id`),
+  ADD KEY `animal_user_animal_id_foreign` (`animal_id`);
+
+--
 -- 資料表索引 `migrations`
 --
 ALTER TABLE `migrations`
@@ -336,10 +359,16 @@ ALTER TABLE `animals`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `animal_user`
+--
+ALTER TABLE `animal_user`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `oauth_clients`
@@ -374,6 +403,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `animals`
   ADD CONSTRAINT `animals_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- 資料表的限制式 `animal_user`
+--
+ALTER TABLE `animal_user`
+  ADD CONSTRAINT `animal_user_animal_id_foreign` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `animal_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
